@@ -3,7 +3,7 @@
 
 namespace nc
 {
-    std::istream& nc::operator>>(std::istream& stream, Transform& transform)
+    std::istream& operator>>(std::istream& stream, Transform& transform)
     {
         stream >> transform.position;
         stream >> transform.scale;

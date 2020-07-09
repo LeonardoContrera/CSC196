@@ -15,6 +15,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{7cac3187-d7c1-4cbe-81d0-7eae0f1cd90a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{0e71ad83-9e5c-45ef-982c-bf8da89062f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

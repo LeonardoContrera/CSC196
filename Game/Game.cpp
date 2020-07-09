@@ -20,6 +20,8 @@ nc::Shape ship;
 nc::Color color{ 0, 1, 1 };
 nc::Transform transform{ {400, 300}, 4, 0 };
 
+float t{ 0 };
+
 float frametime;
 float roundTime{ 0 };
 bool gameOver{ false };
@@ -33,13 +35,15 @@ bool Update(float dt)
 	deltaTime = time - prevTime;
 	prevTime = time;
 
+	t = t + dt * 5.0f;
+
 	frametime = dt;
 	roundTime += dt;
 	
 	if (roundTime >= 5.0f) gameOver = true;
 
 
-	if (gameOver) dt = 0;
+	//if (gameOver) dt = 0;
 
 	bool quit = Core::Input::IsPressed(Core::Input::KEY_ESCAPE);
 
@@ -60,8 +64,14 @@ bool Update(float dt)
 
 
 	//rotate
-	if (Core::Input::IsPressed(Core::Input::KEY_LEFT)) { transform.angle = transform.angle - (dt * 3.0f); }
-	if (Core::Input::IsPressed(Core::Input::KEY_RIGHT)) { transform.angle = transform.angle + (dt * 3.0f); }
+	if (Core::Input::IsPressed(Core::Input::KEY_LEFT)) { transform.angle = transform.angle - (dt * nc::math::DegreesToRadians(360.f)); }
+	if (Core::Input::IsPressed(Core::Input::KEY_RIGHT)) { transform.angle = transform.angle + (dt * nc::math::DegreesToRadians(360.0f)); }
+
+	transform.position = nc::math::Clamp(transform.position, { 0, 0 }, { 800, 600 });
+
+	//transform.position.x = nc::math::Clamp(transform.position.x, 0.0f, 800.0f);
+	//transform.position.y = nc::math::Clamp(transform.position.y, 0.0f, 600.0f);
+	
 
 	//position = position + direction * 7.0f;
 	//if (Core::Input::IsPressed(Core::Input::KEY_LEFT)) { position += nc::Vector2::left * speed * dt; }
@@ -81,6 +91,14 @@ void Draw(Core::Graphics& graphics)
 	graphics.DrawString(10, 20, std::to_string(1.0f / frametime).c_str());
 	graphics.DrawString(10, 30, std::to_string(deltaTime/1000.0f).c_str());
 
+	float v = (std::sin(t) + 1.0f) * 0.5f; // -2 <-> 1 | 0 - 2
+
+	nc::Color c = nc::Lerp(nc::Color{ 0, 0, 1 }, nc::Color{ 1, 0, 0 }, v);
+	graphics.SetColor(c);
+
+	nc::Vector2 p = nc::Lerp(nc::Vector2{ 400, 300 }, nc::Vector2{ 100, 100 }, v);
+
+	graphics.DrawString(p.x, p.y, "Title of Game");
 
 	if (gameOver) graphics.DrawString(400, 300, "Game Over");
 
