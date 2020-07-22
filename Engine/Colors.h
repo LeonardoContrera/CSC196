@@ -43,6 +43,11 @@ namespace nc
 
 			operator COLORREF() const { return Pack888(); }
 
+			static const Color white;
+			static const Color red;
+			static const Color blue;
+			static const Color green;
+			static const Color yellow;
 	};
 
 	inline COLORREF Color::Pack888() const

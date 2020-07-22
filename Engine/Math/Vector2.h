@@ -47,7 +47,7 @@ namespace nc
 		float Length() const;
 		float LengthSqr() const;
 
-		float Distance(const Vector2& v1, const Vector2& v2);
+		static float Distance(const Vector2& v1, const Vector2& v2);
 	
 		Vector2 Normalized() const;
 		void Normalize();
